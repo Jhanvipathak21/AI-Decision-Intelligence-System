@@ -60,7 +60,7 @@ The objective of this project is to:
 
 ---
 
-# 🔄 Project Workflow
+# 🔄 Project Workflow 🔄 
 
 Dataset Collection  
          ↓  
