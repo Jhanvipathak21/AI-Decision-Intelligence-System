@@ -5,10 +5,13 @@ import joblib
 
 
 # Load Dataset
-df = pd.read_csv(
-    "../dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-)
 
+# df = pd.read_csv(
+#     "../dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+# )
+df = pd.read_csv(
+    "dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+)
 
 # =========================
 # PAGE CONFIG
@@ -22,8 +25,9 @@ st.set_page_config(
 # =========================
 # LOAD MODEL
 # =========================
+
 model = joblib.load(
-    "../models/churn_model.pkl"
+    "models/churn_model.pkl"
 )
 
 # =========================
