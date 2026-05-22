@@ -273,6 +273,5 @@ to build an intelligent customer churn prediction system capable of generating a
 ---
 
 # 👩‍💻 Author
-
-**Jhanvi Pathak**
-MCA (AI & ML)
+<ins> **Jhanvi Pathak**
+MCA (AI & ML)  </ins>
