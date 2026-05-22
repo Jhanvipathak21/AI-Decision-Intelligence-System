@@ -199,23 +199,21 @@ streamlit run dashboard/Dashboard.py
 
 ## Main Dashboard
 
-(Add Screenshot Here)
+( Screenshot )
 
 ## AI Insights Dashboard
 
-(Add Screenshot Here)
+(Screenshot )
 
 ## Analytics Dashboard
-
-(Add Screenshot Here)
+(Screenshot )
 
 ## Reports Dashboard
 
 (Add Screenshot Here)
 
 ## System Status Dashboard
-
-(Add Screenshot Here)
+(Screenshot )
 
 ---
 
