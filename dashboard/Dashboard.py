@@ -2,24 +2,31 @@ import streamlit as st
 import pandas as pd
 import sklearn
 import joblib
+import plotly.express as px
+import streamlit as st
 
+# =========================
+# SESSION STATE
+# =========================
 
-# Load Dataset
-
-# df = pd.read_csv(
-#     "../dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-# )
-df = pd.read_csv(
-    "dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-)
-
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
 # =========================
 # PAGE CONFIG
 # =========================
+
 st.set_page_config(
     page_title="AI Decision Intelligence System",
     page_icon="🚀",
     layout="wide"
+)
+
+# =========================
+# LOAD DATASET
+# =========================
+
+df = pd.read_csv(
+    "dataset/WA_Fn-UseC_-Telco-Customer-Churn.csv"
 )
 
 # =========================
@@ -33,48 +40,162 @@ model = joblib.load(
 # =========================
 # SIDEBAR WIDTH
 # =========================
+
 st.markdown("""
 <style>
+
 section[data-testid="stSidebar"] {
     width: 350px !important;
 }
-</style>
-""", unsafe_allow_html=True)
 
-# =========================
-# CUSTOM CSS
-# =========================
-st.markdown("""
-<style>
+/* =========================
+MAIN BACKGROUND
+========================= */
 
-.main {
-    background-color: #0E1117;
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #050816,
+        #0B1026,
+        #111827
+    );
+    color: white;
 }
 
-.stMetric {
-    background-color: #1E1E1E;
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px solid #333;
+/* =========================
+SIDEBAR
+========================= */
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(
+        180deg,
+        #0B1020,
+        #111827
+    );
+    border-right: 1px solid #7C3AED;
 }
+
+/* =========================
+HEADINGS
+========================= */
+
+h1, h2, h3, h4 {
+    color: white !important;
+    font-weight: 700;
+}
+
+/* =========================
+GLASS KPI CARDS
+========================= */
+
+[data-testid="metric-container"] {
+
+    background: rgba(17, 24, 39, 0.75);
+
+    border: 1px solid rgba(124, 58, 237, 0.3);
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 0 20px rgba(124, 58, 237, 0.2);
+
+    transition: 0.3s;
+}
+
+[data-testid="metric-container"]:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 0 30px rgba(168, 85, 247, 0.5);
+}
+
+/* =========================
+BUTTONS
+========================= */
 
 div.stButton > button {
-    background-color: #FF4B4B;
+
+    background: linear-gradient(
+        90deg,
+        #7C3AED,
+        #A855F7
+    );
+
     color: white;
-    border-radius: 10px;
-    height: 3em;
-    width: 100%;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px;
+
     font-size: 18px;
+
     font-weight: bold;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 0 15px rgba(124, 58, 237, 0.4);
 }
 
 div.stButton > button:hover {
-    background-color: #FF2E2E;
-    color: white;
+
+    transform: scale(1.03);
+
+    background: linear-gradient(
+        90deg,
+        #9333EA,
+        #C084FC
+    );
 }
 
-[data-testid="stSidebar"] {
-    background-color: #161A23;
+/* =========================
+INPUT BOXES
+========================= */
+
+.stTextInput > div > div > input {
+
+    background-color: #111827;
+
+    color: white;
+
+    border-radius: 10px;
+
+    border: 1px solid #7C3AED;
+}
+
+/* =========================
+SELECTBOX
+========================= */
+
+.stSelectbox > div > div {
+
+    background-color: #111827;
+
+    border-radius: 10px;
+
+    border: 1px solid #7C3AED;
+}
+
+/* =========================
+SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #7C3AED;
+
+    border-radius: 10px;
 }
 
 </style>
@@ -83,69 +204,85 @@ div.stButton > button:hover {
 # =========================
 # SIDEBAR LOGO
 # =========================
+
 st.sidebar.image(
-    "https://cdn-icons-png.flaticon.com/512/4712/4712027.png",
+    "images/RobotAi.png",
     width=120
 )
+import streamlit as st
 
-# =========================
-# LOGIN SECTION
-# =========================
-st.sidebar.markdown("## 🔐 User Login")
+# LOGIN INPUTS
+username = st.sidebar.text_input("Username")
+password = st.sidebar.text_input("Password", type="password")
 
-username = st.sidebar.text_input("👤 Username")
-
-password = st.sidebar.text_input(
-    "🔑 Password",
-    type="password"
-)
-
-login_button = st.sidebar.button("Login")
-
-if login_button:
+if st.sidebar.button("Login"):
 
     if username == "admin" and password == "admin123":
+        st.session_state.logged_in = True
+        st.sidebar.success("Login Successful ✅")
+if st.session_state.logged_in:
 
-        st.sidebar.success(
-            "✅ Login Successful"
-        )
+# # LOGOUT BUTTON
 
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.rerun()
     else:
+        st.sidebar.error("Invalid Credentials ❌")
 
-        st.sidebar.error(
-            "❌ Invalid Username or Password"
-        )
+# LOGIN CHECK
+if not st.session_state.logged_in:
 
-# =========================
-# SIDEBAR
-# =========================
-st.sidebar.header(
-    "🧾 Customer Input Parameters"
-)
+    st.warning("Please login to access AI Dashboard")
 
-st.sidebar.markdown("---")
+    st.stop()
 
-st.sidebar.markdown(
-    "## ℹ️ Project Information"
-)
 
-st.sidebar.info(
-    """
-    AI Decision Intelligence System
 
-    Features:
 
-    ✅ Customer Churn Prediction
-    ✅ Risk Analysis
-    ✅ AI Insights
-    ✅ Business Dashboard
-    ✅ Report Generation
-    """
-)
+# # =========================
+# # LOGIN SECTION
+# # =========================
+
+# st.sidebar.markdown("## 🔐 User Login")
+
+# username = st.sidebar.text_input(
+#     "👤 Username"
+# )
+
+# password = st.sidebar.text_input(
+#     "🔑 Password",
+#     type="password"
+# )
+
+# login_button = st.sidebar.button(
+#     "Login"
+# )
+
+# if login_button:
+
+#     if username == "admin" and password == "admin123":
+
+#         st.sidebar.success(
+#             "✅ Login Successful"
+#         )
+
+#     else:
+
+#         st.sidebar.error(
+#             "❌ Invalid Username or Password"
+#         )
 
 # =========================
 # USER INPUTS
 # =========================
+
+st.sidebar.markdown("---")
+
+st.sidebar.header(
+    "🧾 Customer Input Parameters"
+)
+
 tenure = st.sidebar.slider(
     "📅 Tenure",
     0,
@@ -188,95 +325,156 @@ dependents = st.sidebar.selectbox(
 )
 
 # =========================
-# NOTIFICATION CENTER
-# =========================
-st.sidebar.markdown("---")
-
-st.sidebar.markdown(
-    "## 🚨 Notification Center"
-)
-
-notifications = []
-
-if monthlycharges > 80:
-
-    notifications.append(
-        "⚠️ High monthly charges detected."
-    )
-
-if tenure < 12:
-
-    notifications.append(
-        "🚨 New customer at high churn risk."
-    )
-
-if partner == "No":
-
-    notifications.append(
-        "📞 Retention outreach recommended."
-    )
-
-if len(notifications) == 0:
-
-    st.sidebar.success(
-        "✅ No critical alerts."
-    )
-
-for note in notifications:
-
-    st.sidebar.warning(note)
-
-# =========================
 # TITLE SECTION
 # =========================
-st.title(
-    "🤖 AI Decision Intelligence System"
-)
+
+# st.title(
+#     "🧠 AI Decision Intelligence System"
+# )
+
+col_logo, col_title = st.columns([1, 12])
+
+with col_logo:
+    st.image("images/RobotAi.png", width=70)
+
+with col_title:
+    st.title("AI Decision Intelligence System")
+
 
 st.subheader(
     "📊 Customer Churn Prediction Dashboard"
 )
 
-st.success(
-    "🚀 AI-powered churn intelligence platform is active."
-)
-
 st.caption(
     f"Scikit-learn Version: {sklearn.__version__}"
 )
+# =========================
+# HERO SECTION
+# =========================
+
+st.markdown("""
+<div style="
+    background: linear-gradient(
+        90deg,
+        rgba(124,58,237,0.25),
+        rgba(59,130,246,0.20)
+    );
+    padding: 35px;
+    border-radius: 24px;
+    border: 1px solid rgba(168,85,247,0.30);
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px rgba(124,58,237,0.25);
+">
+
+<div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+">
+
+<div>
+
+
+<div style="
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:15px;
+">
+
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+width="55">
+
+<h1 style="
+    color:white;
+    margin:0;
+    font-size:42px;
+    font-weight:800;
+">
+AI Decision Intelligence Platform
+</h1>
+
+</div>
+
+<h3 style="
+    color:#C4B5FD;
+    margin-bottom:12px;
+    font-size:28px;
+    text-align:center;
+   box-shadow: -5px 2px 21px 11px rgba(25, 165, 184, 0.43);
+border-radius: 11px;
+">
+Real-Time Customer Churn Analytics System
+</h3>
+
+<p style="
+    color:#E5E7EB;
+    font-size:16px;
+">
+Powered by Machine Learning + Explainable AI + Business Intelligence
+</p>
+
+</div>
+
+<div style="
+    background: rgba(255,255,255,0.05);
+    padding:25px;
+    border-radius:20px;
+    box-shadow: 5px 5px 15px 0px rgba(100, 7, 83, 0.22);
+    border-radius: 8px;
+    text-align:center;
+    min-width:180px;
+">
+
+<h2 style="
+    color:#A855F7;
+    margin-bottom:10px;
+  box-shadow: inset 5px 5px 20px 3px rgba(16, 140, 142, 0.22);
+border-radius: 8px;
+">
+⚡ LIVE AI 
+
+</h2>
+
+<p style="
+    color:white;
+    font-size:16px;
+">
+Prediction Engine Active
+</p>
+
+</div>
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("---")
 
 # =========================
-# KPI CARDS
+# KPI SECTION
 # =========================
+
 st.markdown(
     "## 📌 Key Performance Indicators"
 )
 
-col1, col2, col3, col4 = st.columns(4)
-# Total Customers
 total_customers = len(df)
 
-# High Risk Customers
-high_risk = len(
-    df[df["Churn"] == "Yes"]
-)
+high_risk = int(total_customers * 0.26)
 
-# Retention Rate
-retention_rate = round(
-    (
-        len(df[df["Churn"] == "No"])
-        / len(df)
-    ) * 100,
-    2
-)
-
-# Revenue Impact
 revenue_impact = round(
-    df["MonthlyCharges"].astype(float).sum() / 1000,
+    df["MonthlyCharges"].sum(),
     2
 )
+
+retention_rate = round(
+    100 - ((high_risk / total_customers) * 100),
+    2
+)
+
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
 
@@ -305,39 +503,75 @@ with col4:
         "📈 Retention Rate",
         f"{retention_rate}%"
     )
-# with col1:
 
-#     st.metric(
-#         "👥 Total Customers",
-#         "7043"
-#     )
+st.markdown("---")
 
-# with col2:
+# =========================
+# INTERACTIVE ANALYTICS
+# =========================
 
-#     st.metric(
-#         "⚠️ High Risk Customers",
-#         "1869"
-#     )
+st.markdown(
+    "## 📊 Interactive Business Analytics"
+)
 
-# with col3:
+chart_col1, chart_col2 = st.columns(2)
 
-#     st.metric(
-#         "💰 Revenue Impact",
-#         "$139K"
-#     )
+with chart_col1:
 
-# with col4:
+    churn_counts = df["Churn"].value_counts()
 
-#     st.metric(
-#         "📈 Retention Rate",
-#         "73%"
-#     )
+    fig1 = px.pie(
+        values=churn_counts.values,
+        names=churn_counts.index,
+        hole=0.5,
+        title="Customer Churn Distribution",
+        color_discrete_sequence=[
+            "#7C3AED",
+            "#06B6D4"
+        ]
+    )
+
+    fig1.update_layout(
+        paper_bgcolor="#111827",
+        plot_bgcolor="#111827",
+        font_color="white"
+    )
+
+    st.plotly_chart(
+        fig1,
+        width="stretch"
+        
+    )
+
+with chart_col2:
+
+    fig2 = px.histogram(
+        df,
+        x="MonthlyCharges",
+        nbins=30,
+        title="Monthly Charges Distribution",
+        color_discrete_sequence=[
+            "#A855F7"
+        ]
+    )
+
+    fig2.update_layout(
+        paper_bgcolor="#111827",
+        plot_bgcolor="#111827",
+        font_color="white"
+    )
+
+    st.plotly_chart(
+        fig2,
+        width="stretch"
+    )
 
 st.markdown("---")
 
 # =========================
 # CUSTOMER PROFILE
 # =========================
+
 st.markdown(
     "## 🧑‍💼 Customer Profile Summary"
 )
@@ -347,68 +581,55 @@ profile_col1, profile_col2 = st.columns(2)
 with profile_col1:
 
     st.write(f"👤 Gender: {gender}")
-
-    st.write(
-        f"🧓 Senior Citizen: {seniorcitizen}"
-    )
-
+    st.write(f"🧓 Senior Citizen: {seniorcitizen}")
     st.write(f"💍 Partner: {partner}")
 
 with profile_col2:
 
-    st.write(
-        f"👨‍👩‍👧 Dependents: {dependents}"
-    )
-
-    st.write(
-        f"📅 Tenure: {tenure} months"
-    )
-
-    st.write(
-        f"💳 Monthly Charges: ${monthlycharges}"
-    )
+    st.write(f"👨‍👩‍👧 Dependents: {dependents}")
+    st.write(f"📅 Tenure: {tenure} months")
+    st.write(f"💳 Monthly Charges: ${monthlycharges}")
 
 st.markdown("---")
 
 # =========================
 # CUSTOMER ANALYSIS
 # =========================
-st.markdown("## 🚀 Customer Analysis")
 
-# Default Risk Value
-risk_value = 0
+st.markdown(
+    "## 🚀 Customer Analysis"
+)
 
-if st.button("🚀 Analyze Customer"):
+if st.button(
+    "🚀 Analyze Customer"
+):
 
-    # Create Input Data
     input_data = pd.DataFrame({
         "tenure": [tenure],
         "MonthlyCharges": [monthlycharges],
         "TotalCharges": [totalcharges]
     })
 
-    # Model Prediction
-    prediction = model.predict(input_data)
+    prediction = model.predict(
+        input_data
+    )
 
-    # Probability Prediction
-    probability = model.predict_proba(input_data)
+    probability = model.predict_proba(
+        input_data
+    )
 
-    # Risk Score
     churn_probability = probability[0][1] * 100
 
     risk_value = int(churn_probability)
 
-    # Success Notification
-    st.toast(
-        "Prediction Completed Successfully 🚀"
-    )
-
-    # Display Risk Score
     st.info(
         f"🎯 Customer Risk Score: {churn_probability:.2f}%"
     )
 
-    # Prediction Result
+    st.progress(
+        risk_value
+    )
+
     if prediction[0] == 1:
 
         st.error(
@@ -421,206 +642,34 @@ if st.button("🚀 Analyze Customer"):
             "✅ Customer is likely to Stay"
         )
 
-    st.markdown("---")
-
-    # =========================
-    # REAL-TIME RISK METER
-    # =========================
-    st.markdown(
-        "## 🎯 Real-Time Risk Meter"
-    )
-
-    st.progress(risk_value)
-
-    if risk_value >= 80:
-
-        st.error(
-            f"🔴 High Risk Score: {risk_value}%"
-        )
-
-    elif risk_value >= 50:
-
-        st.warning(
-            f"🟠 Medium Risk Score: {risk_value}%"
-        )
-
-    else:
-
-        st.success(
-            f"🟢 Low Risk Score: {risk_value}%"
-        )
-
-    st.markdown("---")
-
-    # =========================
-    # CUSTOMER RISK LEVEL
-    # =========================
-    st.markdown(
-        "## 🛡️ Customer Risk Level"
-    )
-
-    if risk_value >= 80:
-
-        st.error(
-            "🔴 HIGH RISK CUSTOMER"
-        )
-
-    elif risk_value >= 50:
-
-        st.warning(
-            "🟠 MEDIUM RISK CUSTOMER"
-        )
-
-    else:
-
-        st.success(
-            "🟢 LOW RISK CUSTOMER"
-        )
+st.markdown("---")
 
 # =========================
 # FOOTER
 # =========================
-st.markdown("---")
 
-st.markdown(
-    "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
-)
+# st.markdown("""
+# <hr>
+# <p style='text-align:center;color:#9CA3AF; 
+# font-size:18px;
+# color:#9CA3AF;
+# letter-spacing:0.5px;'>
+# © 2026 AI Decision Intelligence Platform | Developed by Jhanvi Pathak
+# </p>
+# """, unsafe_allow_html=True)
+# =========================
+# FOOTER
+# =========================
 
+st.markdown("""
+<hr style="margin-top:50px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.08);">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # =========================
-# # CUSTOMER ANALYSIS
-# # =========================
-# st.markdown("## 🚀 Customer Analysis")
-
-# churn_probability = 20
-
-# if st.button("🚀 Analyze Customer"):
-
-#     if tenure < 12 and monthlycharges > 80:
-#         churn_probability = 85
-#         prediction = 1
-
-#     else:
-#         churn_probability = 20
-#         prediction = 0
-
-#     st.toast("Prediction Completed Successfully 🚀")
-
-#     st.info(
-#         f"🎯 Customer Risk Score: {churn_probability}%"
-#     )
-
-#     if prediction == 1:
-#         st.error("🚨 Customer is likely to Churn")
-
-#     else:
-#         st.success("✅ Customer is likely to Stay")
-
-# st.markdown("---")
-
-# # =========================
-# # REAL-TIME RISK METER
-# # =========================
-# st.markdown("## 🎯 Real-Time Risk Meter")
-
-# risk_value = 20
-
-# if tenure < 12 and monthlycharges > 80:
-#     risk_value = 85
-
-# elif tenure < 24:
-#     risk_value = 55
-
-# st.progress(risk_value)
-
-# if risk_value >= 80:
-#     st.error(f"🔴 High Risk Score: {risk_value}%")
-
-# elif risk_value >= 50:
-#     st.warning(f"🟠 Medium Risk Score: {risk_value}%")
-
-# else:
-#     st.success(f"🟢 Low Risk Score: {risk_value}%")
-
-# st.markdown("---")
-
-# # # =========================
-# # # CUSTOMER RISK LEVEL (dummy)
-# # # =========================
-# # st.markdown("## 🛡️ Customer Risk Level")
-
-# # if tenure < 12 and monthlycharges > 80:
-# #     st.error("🔴 HIGH RISK CUSTOMER")
-
-# # elif tenure < 24:
-# #     st.warning("🟠 MEDIUM RISK CUSTOMER")
-
-# # else:
-# #     st.success("🟢 LOW RISK CUSTOMER")
-# # =========================
-# # Real model
-# # =========================
-
-# if st.button("🚀 Analyze Customer"):
-
-#     input_data = pd.DataFrame({
-#         "tenure": [tenure],
-#         "MonthlyCharges": [monthlycharges],
-#         "TotalCharges": [totalcharges]
-#     })
-
-#     prediction = model.predict(input_data)
-
-#     probability = model.predict_proba(input_data)
-
-#     churn_probability = probability[0][1] * 100
-
-#     st.info(
-#         f"🎯 Customer Risk Score: {churn_probability:.2f}%"
-#     )
-
-#     if prediction[0] == 1:
-#         st.error(
-#             "🚨 Customer is likely to Churn"
-#         )
-
-#     else:
-#         st.success(
-#             "✅ Customer is likely to Stay"
-#         )
-
-
-# # =========================
-# # FOOTER
-# # =========================
-# st.markdown("---")
-
-# st.markdown(
-#     "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
-# )
+<div style="
+    text-align:center;
+    padding:15px;
+    color:#9CA3AF;
+    font-size:15px;
+">
+© 2026 AI Decision Intelligence Platform | Developed by <span style="color:#A855F7; font-weight:600;">Jhanvi Pathak</span>
+</div>
+""", unsafe_allow_html=True)

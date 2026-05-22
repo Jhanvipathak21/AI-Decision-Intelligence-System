@@ -2,6 +2,17 @@ import streamlit as st
 from datetime import datetime
 
 # =========================
+# LOGIN PROTECTION
+# =========================
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    st.warning("Please login first 🔒")
+    st.stop()
+    
+# =========================
 # PAGE CONFIG
 # =========================
 st.set_page_config(
@@ -14,7 +25,7 @@ st.set_page_config(
 # SIDEBAR LOGO
 # =========================
 st.sidebar.image(
-    "https://cdn-icons-png.flaticon.com/512/4712/4712027.png",
+    "images/RobotAi.png",
     width=120
 )
 
@@ -167,9 +178,26 @@ st.success(
 
 st.markdown("---")
 
+# # =========================
+# # FOOTER
+# # =========================
+# st.markdown(
+#     "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
+# )
+
 # =========================
 # FOOTER
 # =========================
-st.markdown(
-    "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
-)
+
+st.markdown("""
+<hr style="margin-top:50px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.08);">
+
+<div style="
+    text-align:center;
+    padding:15px;
+    color:#9CA3AF;
+    font-size:15px;
+">
+© 2026 AI Decision Intelligence Platform | Developed by <span style="color:#A855F7; font-weight:600;">Jhanvi Pathak</span>
+</div>
+""", unsafe_allow_html=True)
