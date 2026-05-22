@@ -1,6 +1,6 @@
-# AI Decision Intelligence System
+ # AI Decision Intelligence System 
 
-An AI-powered enterprise analytics platform for customer churn prediction, explainable AI insights, and business decision intelligence.
+*An AI-powered enterprise analytics platform for customer churn prediction, explainable AI insights, and business decision intelligence.*
 
 ---
 
