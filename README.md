@@ -47,7 +47,7 @@ The project includes a fully interactive enterprise-style Streamlit dashboard fe
 
 ---
 
-# 🛠 Technologies Used
+### 🛠 *Technologies Used*
 
 ## Programming Language
 
@@ -81,23 +81,30 @@ The project includes a fully interactive enterprise-style Streamlit dashboard fe
 * Kaggle Telco Customer Churn Dataset
 
 ---
+# 📊 Current Features
 
-# 📊 Features of the Project
+- Customer churn prediction using Machine Learning
+- Interactive Streamlit dashboard
+- Customer risk analysis
+- Business analytics dashboard
+- AI recommendation engine
+- System monitoring dashboard
+- Downloadable business reports
+- Login authentication system
+- GitHub integration & cloud deployment
+- Data visualization and insights
 
-* Customer churn prediction using Machine Learning
-* Interactive Streamlit dashboard
-* Data preprocessing and feature engineering
-* Exploratory Data Analysis (EDA)
-* Explainable AI using SHAP
-* Feature importance visualization
-* Business insights generation
-* AI-based retention recommendations
-* Customer profile analysis
-* Login authentication system
-* Multi-page enterprise dashboard
-* Model saving using Joblib
-* GitHub version control integration
+---
 
+# 🚀 *Future Enhancements*
+
+- Add SHAP Explainable AI visualizations
+- Integrate real-time ML prediction pipeline
+- Connect Power BI dashboards
+- Add SQL database integration
+- Implement OpenAI-generated business insights
+- Export reports in PDF format
+- Add secure user authentication database
 ---
 
 # 🔄 Project Workflow
@@ -248,6 +255,9 @@ AI_Decision_Intelligence_System/
 * Real-Time Monitoring System
 
 ---
+# * 🌐 Live Demo*
+
+https://ai-decision-intelligence-platform.streamlit.app/
 
 # 📌 Conclusion
 
