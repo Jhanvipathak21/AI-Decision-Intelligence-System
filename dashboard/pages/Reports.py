@@ -13,7 +13,6 @@ if not st.session_state.logged_in:
     st.warning("Please login first 🔒")
     st.stop()
 
-
 # =========================
 # PAGE CONFIG
 # =========================
@@ -30,10 +29,11 @@ st.sidebar.image(
     "images/RobotAi.png",
     width=120
 )
+
 # =========================
 # TITLE SECTION
 # =========================
-st.title("📈 System Status Dashboard")
+st.title("📈 Reports Dashboard")
 
 st.success(
     "🚀 AI-powered reporting system is active."
@@ -57,21 +57,25 @@ st.markdown("---")
 # =========================
 st.markdown("## 📄 Business Reports")
 
-# Report Data
-report_data = pd.DataFrame({
-    "Department": [
-        "Sales",
-        "Customer Support",
-        "Marketing",
-        "Retention"
-    ],
-    "Performance": [85, 78, 90, 88]
-})
+try:
 
-st.dataframe(
-    report_data,
-    width="stretch"
-)
+    report_data = pd.DataFrame({
+        "Department": [
+            "Sales",
+            "Customer Support",
+            "Marketing",
+            "Retention"
+        ],
+        "Performance": [85, 78, 90, 88]
+    })
+
+    st.dataframe(
+        report_data,
+        use_container_width=True
+    )
+
+except Exception as e:
+    st.error(f"Error loading report data: {e}")
 
 st.markdown("---")
 
@@ -127,6 +131,7 @@ with col3:
     st.success("✅ Analytics Updated")
 
 st.markdown("---")
+
 # =========================
 # FOOTER
 # =========================
@@ -143,9 +148,3 @@ st.markdown("""
 © 2026 AI Decision Intelligence Platform | Developed by <span style="color:#A855F7; font-weight:600;">Jhanvi Pathak</span>
 </div>
 """, unsafe_allow_html=True)
-# # =========================
-# # FOOTER
-# # =========================
-# st.markdown(
-#     "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
-# )

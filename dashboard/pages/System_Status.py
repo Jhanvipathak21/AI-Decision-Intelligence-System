@@ -17,8 +17,8 @@ if not st.session_state.logged_in:
 # PAGE CONFIG
 # =========================
 st.set_page_config(
-    page_title="Reports Dashboard",
-    page_icon="📈",
+    page_title="System Status",
+    page_icon="🖥️",
     layout="wide"
 )
 
@@ -33,10 +33,10 @@ st.sidebar.image(
 # =========================
 # TITLE SECTION
 # =========================
-st.title("📈 Reports Dashboard")
+st.title("🖥️ System Status Dashboard")
 
 st.success(
-    "🚀 AI-powered reporting system is active."
+    "🚀 AI-powered monitoring system is active."
 )
 
 # =========================
@@ -53,87 +53,93 @@ st.caption(
 st.markdown("---")
 
 # =========================
-# REPORTS SECTION
+# SYSTEM STATUS DATA
 # =========================
-st.markdown("## 📄 Business Reports")
+st.markdown("## ⚙️ AI System Health Status")
 
-# Report Data
-report_data = pd.DataFrame({
-    "Department": [
-        "Sales",
-        "Customer Support",
-        "Marketing",
-        "Retention"
+status_data = pd.DataFrame({
+    "Component": [
+        "Prediction Engine",
+        "Database Connection",
+        "Analytics System",
+        "AI Monitoring"
     ],
-    "Performance": [85, 78, 90, 88]
+    "Status": [
+        "Active",
+        "Connected",
+        "Running",
+        "Online"
+    ]
 })
 
-st.dataframe(
-    report_data,
-    width="stretch"
-)
+try:
+    st.dataframe(
+        status_data,
+        use_container_width=True
+    )
+
+except Exception as e:
+    st.error(f"Error loading system status: {e}")
 
 st.markdown("---")
 
 # =========================
-# DOWNLOAD REPORT
+# LIVE METRICS
 # =========================
-report = """
-AI Decision Intelligence System Report
-
-Total Customers: 7043
-Retention Rate: 73%
-High Risk Customers: 1869
-
-System Status:
-AI Monitoring Active
-Prediction Engine Running
-"""
-
-st.download_button(
-    label="📥 Download Full Report",
-    data=report,
-    file_name="AI_Report.txt",
-    mime="text/plain"
-)
-
-st.markdown("---")
-
-# =========================
-# PERFORMANCE METRICS
-# =========================
-st.markdown("## 📊 Department Performance")
-
-st.bar_chart(
-    report_data.set_index("Department")
-)
-
-st.markdown("---")
-
-# =========================
-# REPORT STATUS
-# =========================
-st.markdown("## ⚙️ Report Status")
+st.markdown("## 📊 Live System Metrics")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.success("✅ Reports Generated")
+    st.metric(
+        label="CPU Usage",
+        value="42%"
+    )
 
 with col2:
-    st.success("✅ Data Synced")
+    st.metric(
+        label="Memory Usage",
+        value="68%"
+    )
 
 with col3:
-    st.success("✅ Analytics Updated")
+    st.metric(
+        label="Active Users",
+        value="124"
+    )
 
 st.markdown("---")
 
-# # =========================
-# # FOOTER
-# # =========================
-# st.markdown(
-#     "✨ Developed by Jhanvi Pathak | AI Decision Intelligence System"
-# )
+# =========================
+# SYSTEM LOGS
+# =========================
+st.markdown("## 📄 Recent System Logs")
+
+logs = [
+    "✔ AI Prediction Engine Started",
+    "✔ Customer Dataset Loaded",
+    "✔ Business Analytics Updated",
+    "✔ Reports Generated Successfully"
+]
+
+for log in logs:
+    st.success(log)
+
+st.markdown("---")
+
+# =========================
+# SYSTEM HEALTH
+# =========================
+st.markdown("## 💡 Overall System Health")
+
+st.progress(95)
+
+st.info(
+    "System health is stable and running efficiently."
+)
+
+st.markdown("---")
+
 # =========================
 # FOOTER
 # =========================
