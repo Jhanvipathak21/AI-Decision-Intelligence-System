@@ -206,21 +206,24 @@ streamlit run dashboard/Dashboard.py
 
 ## Main Dashboard
 
-( Screenshot )
+<img width="919" height="492" alt="image" src="https://github.com/user-attachments/assets/40e36899-25c0-4893-bec7-4c238a5a7515" />
 
 ## AI Insights Dashboard
-
-(Screenshot )
+<img width="716" height="404" alt="image" src="https://github.com/user-attachments/assets/3982f874-d1cd-4b90-8951-3bf7548bf9ec" />
 
 ## Analytics Dashboard
-(Screenshot )
+<img width="846" height="478" alt="image" src="https://github.com/user-attachments/assets/14d40047-9fda-40fa-89a5-f5f610edf22a" />
+
+<img width="849" height="453" alt="image" src="https://github.com/user-attachments/assets/d5d2c116-46d0-473b-8360-4e8d458ddfdc" />
+
 
 ## Reports Dashboard
-
-(Add Screenshot Here)
+<img width="853" height="368" alt="image" src="https://github.com/user-attachments/assets/f189a5ee-80f5-4d99-a345-12bcc04f26df" />
+<img width="860" height="383" alt="image" src="https://github.com/user-attachments/assets/f9726a84-0f9e-47f9-a375-b989362b3093" />
 
 ## System Status Dashboard
-(Screenshot )
+<img width="852" height="467" alt="image" src="https://github.com/user-attachments/assets/e4c4d7f4-a694-4c8c-934d-1f254565e078" />
+
 
 ---
 
